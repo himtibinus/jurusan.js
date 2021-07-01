@@ -1,0 +1,19 @@
+{
+  "name": "jurusan.js",
+  "version": "0.1.0",
+  "description": "JavaScript autocomplete library for BINUS University list of study programs (majors) ",
+  "main": "jurusan.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/himtibinus/jurusan.js.git"
+  },
+  "author": "Himpunan Mahasiswa Teknik Informatika BINUS UNIVERSITY (https://himti.or.id, https://github.com/himtibinus)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/himtibinus/jurusan.js/issues"
+  },
+  "homepage": "https://github.com/himtibinus/jurusan.js#readme"
+}
