@@ -43,7 +43,7 @@ class Jurusan {
                         case "and":
                         case "dan":
                         case "of":
-                            if (value.compilerOptions && value.compilerOptions.includeConjunctions) initials += words[j].charAt(0);
+                            if (value.compileOptions && value.compileOptions.includeConjunctions) initials += words[j].charAt(0);
                             break;
                         default: initials += words[j].charAt(0);
                     }
@@ -57,6 +57,8 @@ class Jurusan {
                     }
                     
                     // Create reference for each initials
+                    if (value.compilerOptions && value.compilerOptions.indexByInitials === false) continue;
+                    
                     if (!this.data[initials]) this.data[initials] = {key: initials};
                     if (!this.data[initials].didYouMean) this.data[initials].didYouMean = [];
                     this.data[initials].didYouMean.push(key);
@@ -73,7 +75,7 @@ class Jurusan {
      * @returns Search results
      */
     search(keyword, {
-        limit = 10,
+        limit = 20,
         onlyExact = false,
         verbose = false,
         init = true
@@ -95,7 +97,7 @@ class Jurusan {
             // Check for exact match
             if (this.data[terms].type == "Program" && limit > 0){
                 if (verbose) console.log("Exact Match: " + this.data[terms].name);
-                res.push(this.data[terms]);
+                res.push(terms);
         
                 limit--;
             }
@@ -170,8 +172,8 @@ class Jurusan {
         if (init){
             var confidence = {};
             for (i = 0; i < res.length; i++){
-                if (!confidence[res[i].key]) confidence[res[i].key] = 0;
-                confidence[res[i].key]++;
+                if (!confidence[res[i]]) confidence[res[i]] = 0;
+                confidence[res[i]]++;
             }
             
             // Sort by highest confidence
@@ -207,7 +209,7 @@ class Jurusan {
         anggrek: {
             name: "Anggrek",
             type: "Campus",
-            location: ""
+            location: "Jl. Kebon Jeruk Raya No. 27 Kebon Jeruk Jakarta Barat 11530 "
         },
         alam_sutera: {
             name: "Alam Sutera",
@@ -219,7 +221,7 @@ class Jurusan {
             name: "BINUS ASO School of Engineering",
             type: "Campus",
             campuses: ["BASE"],
-            location: ""
+            location: "Jl. Alam Sutera Boulevard No.1, Alam Sutera – Serpong"
         },
         binus_business_school: {
             name: "BINUS Business School",
@@ -264,7 +266,10 @@ class Jurusan {
             inherits: ["computer_science", "regular"]
         },
         csi: {
-            didYouMean: ["cyber_security"]
+            didYouMean: ["cyber_security"],
+            compileOptions: {
+                indexByInitials: false
+            }
         },
         cyber_security: {
             name: "Cyber Security",
@@ -272,7 +277,10 @@ class Jurusan {
             inherits: ["school_of_computer_science", "regular", "kemanggisan"]
         },
         cysec: {
-            didYouMean: ["cyber_security"]
+            didYouMean: ["cyber_security"],
+            compileOptions: {
+                indexByInitials: false
+            }
         },
         economics: {
             name: "Economics",
@@ -312,7 +320,7 @@ class Jurusan {
         kijang: {
             name: "Kijang",
             type: "Campus",
-            location: ""
+            location: "Jl. Kemanggisan Ilir III No. 45 Kemanggisan – Palmerah Jakarta Barat 11480"
         },
         master_program: {
             name: "Master Program",
@@ -325,6 +333,9 @@ class Jurusan {
             inherits: ["undergraduate_program", "master_program"],
         },
         mat: {
+            didYouMean: ["mathematics_and_computer_science"]
+        },
+        math: {
             didYouMean: ["mathematics_and_computer_science"]
         },
         mathematics_and_computer_science: {
@@ -342,10 +353,16 @@ class Jurusan {
             type: "Program Type"
         },
         s1: {
-            didYouMean: ["undergraduate_program"]
+            didYouMean: ["undergraduate_program"],
+            compilerOptions: {
+                indexByInitials: false
+            }
         },
         s2: {
-            didYouMean: ["master_program"]
+            didYouMean: ["master_program"],
+            compilerOptions: {
+                indexByInitials: false
+            }
         },
         school_of_information_systems: {
             name: "School of Information Systems",
@@ -356,7 +373,7 @@ class Jurusan {
             name: "School of Computer Science",
             type: "Faculty",
             inherits: ["undergraduate_program"],
-            compilerOptions: {
+            compileOptions: {
                 includeConjunctions: true
             }
         },
@@ -364,7 +381,7 @@ class Jurusan {
             name: "School of Design",
             type: "Faculty",
             inherits: ["undergraduate_program"],
-            compilerOptions: {
+            compileOptions: {
                 includeConjunctions: true
             }
         },
@@ -379,7 +396,7 @@ class Jurusan {
         syahdan: {
             name: "Syahdan",
             type: "Campus",
-            location: ""
+            location: "Jl. K H. Syahdan No. 9 Kemanggisan – Palmerah Jakarta Barat 11480"
         },
         teknik_informatika: {
             didYouMean: ["computer_science"]
@@ -397,5 +414,3 @@ class Jurusan {
         }
     };
 }
-
-console.log(new Jurusan().search("matematika aku tembak", {verbose: true}));
