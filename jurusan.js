@@ -311,6 +311,9 @@ class Jurusan {
             type: "Faculty",
             inherits: ["undergraduate_program"]
         },
+        informatics: {
+            didYouMean: "computer_science"
+        },
         kemanggisan: {
             name: "Kemanggisan",
             type: "Campus",
