@@ -282,6 +282,11 @@ class Jurusan {
                 indexByInitials: false
             }
         },
+        data_science: {
+            name: "Data Science",
+            type: "Program",
+            inherits: ["school_of_computer_science", "regular", "kemanggisan"]
+        },
         economics: {
             name: "Economics",
             type: "Subfaculty",
